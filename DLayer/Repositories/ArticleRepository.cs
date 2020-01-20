@@ -1,5 +1,6 @@
 ﻿using Core.Interfaces;
 using DLayer.Context;
+using DLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,11 @@ using System.Text;
 
 namespace DLayer.Repositories
 {
-    public class Article : IRepository<Article>
+    public class ArticleRepository : IRepository<Article>
     {
         private BlogWebAppContext _dbContext;
 
-        public Article(BlogWebAppContext dbContext)
+        public ArticleRepository(BlogWebAppContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -26,12 +27,13 @@ namespace DLayer.Repositories
 
         public void Edit(Article entity)
         {
-
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.SaveChanges();
         }
 
         public IEnumerable<Article> GetAll()
         {
-            throw new NotImplementedException();
+            return _dbContext.Article;
         }
 
         public Article GetById(int id)
@@ -41,7 +43,10 @@ namespace DLayer.Repositories
 
         public int Insert(Article entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Article.Add(entity);
+            _dbContext.SaveChanges();
+            _dbContext.Entry(entity).GetDatabaseValues();
+            return entity.Id;
         }
     }
 }
