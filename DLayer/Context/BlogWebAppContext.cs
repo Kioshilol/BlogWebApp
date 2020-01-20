@@ -20,14 +20,6 @@ namespace DLayer.Context
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Tag> Tag { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-1JE7IKV;Initial Catalog=BlogWebApp;Trusted_Connection=True;");
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Article>(entity =>
