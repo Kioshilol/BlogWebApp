@@ -1,8 +1,6 @@
-﻿using Core.Interfaces;
+﻿using BLayer.DTO;
+using Core.Interfaces;
 using DLayer.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BLayer.Mapper
 {

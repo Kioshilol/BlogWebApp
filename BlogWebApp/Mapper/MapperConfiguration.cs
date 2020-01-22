@@ -1,38 +1,37 @@
 ﻿using AutoMapper;
-using DLayer.Entities;
 using BLayer.DTO;
 
-namespace BLayer.Mapper
+namespace BlogWebApp.Mapper
 {
     public abstract class MapperConfiguration
     {
         protected IMapper GetConfiguration()
         {
             var config = new AutoMapper.MapperConfiguration(cfg => {
-                cfg.CreateMap<ArticleDTO, Article>().ForMember(dest => 
-                dest.ArticleCategories, act => act.MapFrom(src => src.ArticleCategories)).ForMember(dest => 
-                dest.ArticleTags, act => act.MapFrom(src => src.ArticleTags));
-
-                cfg.CreateMap<Article, ArticleDTO>().ForMember(dest =>
+                cfg.CreateMap<ArticleViewModel, ArticleDTO>().ForMember(dest =>
                 dest.ArticleCategories, act => act.MapFrom(src => src.ArticleCategories)).ForMember(dest =>
                 dest.ArticleTags, act => act.MapFrom(src => src.ArticleTags));
 
-                cfg.CreateMap<TagDTO, Tag>().ForMember(dest =>
+                cfg.CreateMap<ArticleDTO, ArticleViewModel>().ForMember(dest =>
+                dest.ArticleCategories, act => act.MapFrom(src => src.ArticleCategories)).ForMember(dest =>
                 dest.ArticleTags, act => act.MapFrom(src => src.ArticleTags));
 
-                cfg.CreateMap<Tag, TagDTO>().ForMember(dest =>
+                cfg.CreateMap<TagViewModel, TagDTO>().ForMember(dest =>
                 dest.ArticleTags, act => act.MapFrom(src => src.ArticleTags));
 
-                cfg.CreateMap<CategoryDTO, Category>().ForMember(dest =>
+                cfg.CreateMap<TagDTO, TagViewModel>().ForMember(dest =>
+                dest.ArticleTags, act => act.MapFrom(src => src.ArticleTags));
+
+                cfg.CreateMap<CategoryViewModel, CategoryDTO>().ForMember(dest =>
                 dest.ArticleCategories, act => act.MapFrom(src => src.ArticleCategories));
 
-                cfg.CreateMap<Category, CategoryDTO>().ForMember(dest =>
+                cfg.CreateMap<CategoryDTO, CategoryViewModel>().ForMember(dest =>
                 dest.ArticleCategories, act => act.MapFrom(src => src.ArticleCategories));
 
-                cfg.CreateMap<ArticleCategories, ArticleCategoriesDTO>();
-                cfg.CreateMap<ArticleCategoriesDTO, ArticleCategories>();
-                cfg.CreateMap<ArticleTags, ArticleTagsDTO>();
-                cfg.CreateMap<ArticleTagsDTO, ArticleTags>();
+                cfg.CreateMap<ArticleCategoriesDTO, ArticleCategoriesViewModel>();
+                cfg.CreateMap<ArticleCategoriesViewModel, ArticleCategoriesDTO>();
+                cfg.CreateMap<ArticleTagsDTO, ArticleTagsViewModel>();
+                cfg.CreateMap<ArticleTagsViewModel, ArticleTagsDTO>();
             });
             IMapper iMapper = config.CreateMapper();
             return iMapper;

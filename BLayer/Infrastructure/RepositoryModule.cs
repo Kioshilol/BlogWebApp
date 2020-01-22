@@ -1,20 +1,18 @@
-﻿using Core.Interfaces;
+﻿using BLayer.DTO;
+using Core.Interfaces;
 using DLayer.Entities;
 using DLayer.Repositories;
-using Ninject.Modules;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BLayer.Infrastructure
 {
-    public class RepositoryModule : NinjectModule
+    public static class RepositoryModule
     {
-        public override void Load()
+        public static void AddRepositoryModule(this IServiceCollection services)
         {
-            Bind<IRepository<Article>>().To<ArticleRepository>();
-            Bind<IRepository<Tag>>().To<TagRepository>();
-            Bind<IRepository<Category>>().To<CategoryRepository>();
+            services.AddTransient<IRepository<Article>, ArticleRepository>();
+            services.AddTransient<IRepository<Tag>, TagRepository>();
+            services.AddTransient<IRepository<Category>, CategoryRepository>();
         }
     }
 }

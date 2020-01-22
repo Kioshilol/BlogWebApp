@@ -1,16 +1,15 @@
 ﻿using Core.Interfaces;
 using DLayer;
-using DLayer.Entities;
-using DLayer.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 using Ninject.Modules;
 
 namespace BLayer.Infrastructure
 {
-    public class UnitOfWorkModule : NinjectModule
+    public static class UnitOfWorkModule
     {
-        public override void Load()
+        public static void AddUnitOFWorkModule(this IServiceCollection services)
         {
-            Bind<IUnitOfWork>().To<UnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
     }
 }

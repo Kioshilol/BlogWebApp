@@ -7,7 +7,7 @@ namespace BLayer.Infrastructure
 {
     public static class DbContextModule
     {
-        public static void AddDbContextService(this IServiceCollection services)
+        public static void AddMainDbContext(this IServiceCollection services)
         {
             services.AddDbContext<BlogWebAppContext>(options => options.UseSqlServer(AppSettings.GetConnectionString()));
         }

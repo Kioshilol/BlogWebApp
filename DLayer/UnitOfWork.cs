@@ -2,8 +2,6 @@
 using DLayer.Context;
 using DLayer.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DLayer
 {

@@ -1,4 +1,5 @@
-﻿using Core.Interfaces;
+﻿using BLayer.DTO;
+using Core.Interfaces;
 using DLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace BLayer.Mapper
 
         public Category Map(CategoryDTO categoryDTO)
         {
-            return GetConfiguration().Map<CategoryDTO, Category>(categoryDTO;
+            return GetConfiguration().Map<CategoryDTO, Category>(categoryDTO);
         }
     }
 }

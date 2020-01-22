@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DLayer.Entities
+﻿namespace BLayer.DTO
 {
     public partial class ArticleTagsDTO
     {

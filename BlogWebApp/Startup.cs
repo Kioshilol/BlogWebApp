@@ -7,10 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BLayer.Infrastructure;
-using Ninject.Modules;
-using Ninject;
-using Ninject.Web.Mvc;
-using System.Web.Mvc;
+using BlogWebApp.Utils;
 
 namespace BlogWebApp
 {
@@ -26,10 +23,12 @@ namespace BlogWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            NinjectModule serviceModule = new UnitOfWorkModule();
-            NinjectModule repositoryModule = new RepositoryModule();
-            var kernel = new StandardKernel(repositoryModule, serviceModule);
-            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+            services.AddMainDbContext();
+            services.AddMapperModule();
+            services.AddBLayerMapperModule();
+            services.AddUnitOFWorkModule();
+            services.AddServiceModule();
+            services.AddRepositoryModule();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(

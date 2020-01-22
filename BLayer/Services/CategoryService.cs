@@ -7,24 +7,24 @@ using System.Collections.Generic;
 
 namespace BLayer.Services
 {
-    public class TagService : BaseService, IService<TagDTO>
+    public class CategoryService : BaseService, IService<CategoryDTO>
     {
         private IUnitOfWork _dataBase;
-        private IMapper<Tag, TagDTO> _tagMapper;
-        private ILogger<TagService> _logger;
-        public TagService(IUnitOfWork dataBase, IMapper<Tag, TagDTO> tagMapper)
+        private IMapper<Category, CategoryDTO> _categoryMapper;
+        private ILogger<CategoryService> _logger;
+        public CategoryService(IUnitOfWork dataBase, IMapper<Category, CategoryDTO> categoryMapper)
         {
             _dataBase = dataBase;
-            _tagMapper = tagMapper;
+            _categoryMapper = categoryMapper;
         }
 
-        public int Add(TagDTO tagDTO)
+        public int Add(CategoryDTO categoryDTO)
         {
             int id;
 
             try
             {
-                id = _dataBase.Tags.Insert(_tagMapper.Map(tagDTO));
+                id = _dataBase.Categories.Insert(_categoryMapper.Map(categoryDTO));
             }
             catch (Exception ex)
             {
@@ -35,12 +35,11 @@ namespace BLayer.Services
             return id;
         }
 
-        public void Edit(TagDTO tagDTO)
+        public void Edit(CategoryDTO categoryDTO)
         {
-
             try
             {
-                _dataBase.Tags.Edit(_tagMapper.Map(tagDTO));
+                _dataBase.Categories.Edit(_categoryMapper.Map(categoryDTO));
             }
             catch (Exception ex)
             {
@@ -49,13 +48,13 @@ namespace BLayer.Services
             }
         }
 
-        public TagDTO GetById(int id)
+        public CategoryDTO GetById(int id)
         {
-            TagDTO tagDTO;
+            CategoryDTO categoryDTO;
 
             try
             {
-                tagDTO = _tagMapper.Map(_dataBase.Tags.GetById(id));
+                categoryDTO = _categoryMapper.Map(_dataBase.Categories.GetById(id));
             }
             catch (Exception ex)
             {
@@ -63,14 +62,14 @@ namespace BLayer.Services
                 throw;
             }
 
-            return tagDTO;
+            return categoryDTO;
         }
 
         public void Delete(int id)
         {
             try
             {
-                _dataBase.Tags.Delete(id);
+                _dataBase.Categories.Delete(id);
             }
             catch (Exception ex)
             {
@@ -79,13 +78,13 @@ namespace BLayer.Services
             }
         }
 
-        public IEnumerable<TagDTO> GetAll()
+        public IEnumerable<CategoryDTO> GetAll()
         {
-            IEnumerable<TagDTO> tagDTOs;
+            IEnumerable<CategoryDTO> categoryDTOs;
 
             try
             {
-                tagDTOs = Map(_tagMapper, _dataBase.Tags.GetAll());
+                categoryDTOs = Map(_categoryMapper, _dataBase.Categories.GetAll());
             }
             catch (Exception ex)
             {
@@ -93,7 +92,7 @@ namespace BLayer.Services
                 throw;
             }
 
-            return tagDTOs;
+            return categoryDTOs;
         }
     }
 }
