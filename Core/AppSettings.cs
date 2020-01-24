@@ -11,6 +11,12 @@ namespace Core
             return connectionString;
         }
 
+        public static int GetCountOfPageItems()
+        {
+            var size = SetJsonFile().GetSection("PageSize").GetSection("RowsPerPage").Value;
+            return int.Parse(size);
+        }
+
         private static IConfigurationRoot SetJsonFile()
         {
             var configurationBuilder = new ConfigurationBuilder();

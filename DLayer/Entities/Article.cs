@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DLayer.Entities
 {
@@ -7,7 +6,6 @@ namespace DLayer.Entities
     {
         public Article()
         {
-            ArticleCategories = new HashSet<ArticleCategories>();
             ArticleTags = new HashSet<ArticleTags>();
         }
 
@@ -16,8 +14,9 @@ namespace DLayer.Entities
         public string ShortDescription { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
+        public int? CategoryId { get; set; }
 
-        public virtual ICollection<ArticleCategories> ArticleCategories { get; set; }
+        public virtual Category Category { get; set; }
         public virtual ICollection<ArticleTags> ArticleTags { get; set; }
     }
 }

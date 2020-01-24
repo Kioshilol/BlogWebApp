@@ -9,7 +9,7 @@ namespace Core.Interfaces
         int Insert(T entity);
         void Delete(int id);
         void Edit(T entity);
-        IEnumerable<T> GetAll();
+        IEnumerable<T> Get(bool isPaging, int page);
         T GetById(int id);
     }
 }

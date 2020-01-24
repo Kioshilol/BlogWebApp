@@ -1,4 +1,5 @@
-﻿using Core.Interfaces;
+﻿using Core;
+using Core.Interfaces;
 using DLayer.Context;
 using DLayer.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -31,14 +32,22 @@ namespace DLayer.Repositories
             _dbContext.SaveChanges();
         }
 
-        public IEnumerable<Article> GetAll()
+        public IEnumerable<Article> Get(bool isPaging, int page)
         {
-            return _dbContext.Article;
+            if (isPaging)
+            {
+                var pageSize = AppSettings.GetCountOfPageItems();
+                //TODO move init to BLayer
+                return _dbContext.Article.Skip((page - 1) * pageSize).Take(pageSize).Include(c => c.Category).Include(at => at.ArticleTags).ThenInclude(t => t.Tag);
+            }
+            else
+                return _dbContext.Article.Include(p => p.Category);
         }
 
         public Article GetById(int id)
         {
-            return _dbContext.Article.Find(id);
+            //TODO move init to BLayer
+            return _dbContext.Article.Where(a => a.Id == id).Include(p => p.Category).Include(at => at.ArticleTags).ThenInclude(t => t.Tag).First();
         }
 
         public int Insert(Article entity)

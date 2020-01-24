@@ -10,11 +10,9 @@ namespace BLayer.Mapper
         {
             var config = new AutoMapper.MapperConfiguration(cfg => {
                 cfg.CreateMap<ArticleDTO, Article>().ForMember(dest => 
-                dest.ArticleCategories, act => act.MapFrom(src => src.ArticleCategories)).ForMember(dest => 
                 dest.ArticleTags, act => act.MapFrom(src => src.ArticleTags));
 
                 cfg.CreateMap<Article, ArticleDTO>().ForMember(dest =>
-                dest.ArticleCategories, act => act.MapFrom(src => src.ArticleCategories)).ForMember(dest =>
                 dest.ArticleTags, act => act.MapFrom(src => src.ArticleTags));
 
                 cfg.CreateMap<TagDTO, Tag>().ForMember(dest =>
@@ -23,14 +21,10 @@ namespace BLayer.Mapper
                 cfg.CreateMap<Tag, TagDTO>().ForMember(dest =>
                 dest.ArticleTags, act => act.MapFrom(src => src.ArticleTags));
 
-                cfg.CreateMap<CategoryDTO, Category>().ForMember(dest =>
-                dest.ArticleCategories, act => act.MapFrom(src => src.ArticleCategories));
+                cfg.CreateMap<CategoryDTO, Category>();
 
-                cfg.CreateMap<Category, CategoryDTO>().ForMember(dest =>
-                dest.ArticleCategories, act => act.MapFrom(src => src.ArticleCategories));
+                cfg.CreateMap<Category, CategoryDTO>();
 
-                cfg.CreateMap<ArticleCategories, ArticleCategoriesDTO>();
-                cfg.CreateMap<ArticleCategoriesDTO, ArticleCategories>();
                 cfg.CreateMap<ArticleTags, ArticleTagsDTO>();
                 cfg.CreateMap<ArticleTagsDTO, ArticleTags>();
             });

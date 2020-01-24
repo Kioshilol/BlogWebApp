@@ -15,7 +15,6 @@ namespace DLayer.Context
         }
 
         public virtual DbSet<Article> Article { get; set; }
-        public virtual DbSet<ArticleCategories> ArticleCategories { get; set; }
         public virtual DbSet<ArticleTags> ArticleTags { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Tag> Tag { get; set; }
@@ -38,23 +37,11 @@ namespace DLayer.Context
                 entity.Property(e => e.ShortDescription)
                     .IsRequired()
                     .HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<ArticleCategories>(entity =>
-            {
-                entity.HasKey(e => new { e.CategoryId, e.ArticleId });
-
-                entity.HasOne(d => d.Article)
-                    .WithMany(p => p.ArticleCategories)
-                    .HasForeignKey(d => d.ArticleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ArticleCategories_Article");
 
                 entity.HasOne(d => d.Category)
-                    .WithMany(p => p.ArticleCategories)
+                    .WithMany(p => p.Article)
                     .HasForeignKey(d => d.CategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ArticleCategories_Category");
+                    .HasConstraintName("FK_Article_Category");
             });
 
             modelBuilder.Entity<ArticleTags>(entity =>
@@ -76,8 +63,6 @@ namespace DLayer.Context
 
             modelBuilder.Entity<Category>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);

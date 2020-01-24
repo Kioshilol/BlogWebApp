@@ -1,9 +1,11 @@
-﻿using Core.Interfaces;
+﻿using Core;
+using Core.Interfaces;
 using DLayer.Context;
 using DLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DLayer.Repositories
@@ -30,9 +32,15 @@ namespace DLayer.Repositories
             _dbContext.SaveChanges();
         }
 
-        public IEnumerable<Category> GetAll()
+        public IEnumerable<Category> Get(bool isPaging, int page)
         {
-            return _dbContext.Category;
+            if (isPaging)
+            {
+                var pageSize = AppSettings.GetCountOfPageItems();
+                return _dbContext.Category.Skip((page - 1) * pageSize).Take(pageSize);
+            }
+            else
+                return _dbContext.Category;
         }
 
         public Category GetById(int id)

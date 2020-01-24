@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace BLayer.DTO
 {
@@ -7,12 +6,12 @@ namespace BLayer.DTO
     {
         public CategoryDTO()
         {
-            ArticleCategories = new HashSet<ArticleCategoriesDTO>();
+            Article = new HashSet<ArticleDTO>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<ArticleCategoriesDTO> ArticleCategories { get; set; }
+        public virtual ICollection<ArticleDTO> Article { get; set; }
     }
 }

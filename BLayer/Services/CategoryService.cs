@@ -1,4 +1,5 @@
 ﻿using BLayer.DTO;
+using Core;
 using Core.Interfaces;
 using DLayer.Entities;
 using Microsoft.Extensions.Logging;
@@ -7,7 +8,7 @@ using System.Collections.Generic;
 
 namespace BLayer.Services
 {
-    public class CategoryService : BaseService, IService<CategoryDTO>
+    public class CategoryService : IService<CategoryDTO>
     {
         private IUnitOfWork _dataBase;
         private IMapper<Category, CategoryDTO> _categoryMapper;
@@ -78,13 +79,13 @@ namespace BLayer.Services
             }
         }
 
-        public IEnumerable<CategoryDTO> GetAll()
+        public IEnumerable<CategoryDTO> Get(bool isPaging, int page)
         {
             IEnumerable<CategoryDTO> categoryDTOs;
 
             try
             {
-                categoryDTOs = Map(_categoryMapper, _dataBase.Categories.GetAll());
+                categoryDTOs = BaseMapper.Map(_categoryMapper, _dataBase.Categories.Get(isPaging, page));
             }
             catch (Exception ex)
             {

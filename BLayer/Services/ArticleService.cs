@@ -1,4 +1,5 @@
 ﻿using BLayer.DTO;
+using Core;
 using Core.Interfaces;
 using DLayer.Entities;
 using Microsoft.Extensions.Logging;
@@ -7,7 +8,7 @@ using System.Collections.Generic;
 
 namespace BLayer.Services
 {
-    public class ArticleService : BaseService, IService<ArticleDTO>
+    public class ArticleService : IService<ArticleDTO>
     {
         private IUnitOfWork _dataBase;
         private IMapper<Article, ArticleDTO> _articleMapper;
@@ -78,14 +79,15 @@ namespace BLayer.Services
             }
         }
 
-        public IEnumerable<ArticleDTO> GetAll()
+        public IEnumerable<ArticleDTO> Get(bool isPaging, int page)
         {
             IEnumerable<ArticleDTO> articlesDTOs;
 
             try
             {
-                articlesDTOs = Map(_articleMapper, _dataBase.Articles.GetAll());
+                articlesDTOs = BaseMapper.Map(_articleMapper, _dataBase.Articles.Get(isPaging, page));
             }
+
             catch (Exception ex)
             {
                 _logger.LogInformation(ex.Message, "Stopped program because of exception");
