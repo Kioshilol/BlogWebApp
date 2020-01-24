@@ -1,7 +1,128 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model BlogWebApp.ViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Edit">Create New Article</a>
+    <br />
+    <br />
+    <a asp-action="EditCategory">Create New Category</a>
+    <br />
+    <br />
+    <a asp-action="EditTag">Create New Tag</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.Label("Name")
+            </th>
+            <th>
+                @Html.Label("Short description")
+            </th>
+            <th>
+                @Html.Label("Category")
+            </th>
+            <th>
+                @Html.Label("Image")
+            </th>
+            <th>
+                @Html.Label("Tags")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Articles)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @{
+                    foreach (var tag in item.ArticleTags)
+                    {
+                        @tag.Tag.Name
+                    }
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { item.Id }) |
+                @Html.ActionLink("Details", "Details", new { item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { item.Id })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div class="form-group">
+    @for (int i = 1; i <= Model.PageViewModel.TotalPages; i++)
+    {
+        <a asp-action="Index" asp-controller="Home" asp-route-page="@i" class="btn btn-default">@i</a>
+    }
 </div>
+<p>Categories</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.Label("Name")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Categories)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditCategory", new { item.Id }) |
+                    @Html.ActionLink("Delete", "DeleteCategory", new { item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p>Tags</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.Label("Name")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Tags)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditTag", new { item.Id }) |
+                    @Html.ActionLink("Delete", "DeleteTag", new { item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
